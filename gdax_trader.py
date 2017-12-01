@@ -95,7 +95,7 @@ class GDAXTrader:
         try:
             order_book = self._get_order_book(self.product)
 
-        # Skip iteration if ticker data is unavailable
+        # Skip iteration if order book data is unavailable
         except (ConnectionError, JSONDecodeError):
             return False
 
