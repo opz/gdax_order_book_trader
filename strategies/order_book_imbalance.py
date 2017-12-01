@@ -308,36 +308,40 @@ class OBIStrategy(Strategy):
 
             currency = self.get_product_quote()
             size = self.get_currency_balance(currency) / market_price
-            logger.info('Size of position: {}'.format(size))
 
-            try:
-                order = self.trader.buy(market_price, size, self.trader.product)
-            except (ConnectionError, JSONDecodeError) as error:
-                logger.warning(error)
-                return False
+            if size >= Decimal('0.00000001'):
+                logger.info('Size of position: {}'.format(size))
 
-            if 'message' not in order:
-                self.order = order
+                try:
+                    order = self.trader.buy(market_price, size, self.trader.product)
+                except (ConnectionError, JSONDecodeError) as error:
+                    logger.warning(error)
+                    return False
 
-            return True
+                if 'message' not in order:
+                    self.order = order
+
+                return True
 
         elif signal == OBIStrategy.SELL_SIGNAL:
             logger.info('Signal indicates SELL order')
 
             currency = self.get_product_base()
             size = self.get_currency_balance(currency)
-            logger.info('Size of position: {}'.format(size))
 
-            try:
-                order = self.trader.sell(market_price, size, self.trader.product)
-            except (ConnectionError, JSONDecodeError) as error:
-                logger.warning(error)
-                return False
+            if size >= Decimal('0.00000001'):
+                logger.info('Size of position: {}'.format(size))
 
-            if 'message' not in order:
-                self.order = order
+                try:
+                    order = self.trader.sell(market_price, size, self.trader.product)
+                except (ConnectionError, JSONDecodeError) as error:
+                    logger.warning(error)
+                    return False
 
-            return True
+                if 'message' not in order:
+                    self.order = order
+
+                return True
 
         logger.info('No signal indicated')
 
