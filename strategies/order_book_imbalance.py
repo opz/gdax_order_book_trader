@@ -243,7 +243,7 @@ class OBIStrategy(Strategy):
         if signal == OBIStrategy.BUY_SIGNAL:
             price_changed = price != (market_price + OBIStrategy.LIMIT_PADDING)
 
-        elif signal == OBIStrategy.BUY_SIGNAL:
+        elif signal == OBIStrategy.SELL_SIGNAL:
             price_changed = price != (market_price - OBIStrategy.LIMIT_PADDING)
 
         if not signal or (can_be_cancelled and price_changed):
