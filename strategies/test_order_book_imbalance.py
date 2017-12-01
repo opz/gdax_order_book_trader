@@ -515,7 +515,8 @@ class OBIStrategyTestCase(unittest.TestCase):
         TEST_PRICE = 1.0
         obi._get_market_price = MagicMock(return_value=TEST_PRICE)
 
-        obi.get_currency_balance = MagicMock()
+        TEST_BALANCE = 1.0
+        obi.get_currency_balance = MagicMock(return_value=TEST_BALANCE)
 
         trader = MagicMock()
         obi.trader = trader
@@ -539,7 +540,8 @@ class OBIStrategyTestCase(unittest.TestCase):
         TEST_PRICE = 1.0
         obi._get_market_price = MagicMock(return_value=TEST_PRICE)
 
-        obi.get_currency_balance = MagicMock()
+        TEST_BALANCE = 1.0
+        obi.get_currency_balance = MagicMock(return_value=TEST_BALANCE)
 
         trader = MagicMock()
         obi.trader = trader
