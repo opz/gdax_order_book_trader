@@ -150,7 +150,7 @@ class OBIStrategy(Strategy):
         if len(self.order_book_imbalance) > OBIStrategy.PERIOD:
             last_period_obi = self.order_book_imbalance[-OBIStrategy.PERIOD:]
 
-            threshold = pd.DataFrame(last_period_obi).std()[0]
+            threshold = pd.DataFrame(last_period_obi, dtype='float64').std()[0]
             buy_threshold = threshold * 2
             sell_threshold = -threshold * 2
 
