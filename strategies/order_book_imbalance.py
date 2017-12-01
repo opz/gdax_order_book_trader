@@ -3,6 +3,7 @@ from decimal import Decimal, InvalidOperation
 from json.decoder import JSONDecodeError
 
 import logging
+import pandas as pd
 
 from strategy import Strategy
 
