@@ -25,7 +25,7 @@ class OBIStrategy(Strategy):
 
     MINIMUM_HOLD_TIME = 20 # seconds to hold a limit order before cancelling
 
-    LIMIT_PADDING = 0.01 # Amount to pad limit order prices
+    LIMIT_PADDING = Decimal('0.01') # Amount to pad limit order prices
 
     def set_up(self):
         self.order = None
@@ -124,15 +124,23 @@ class OBIStrategy(Strategy):
 
         bid_qty = 0
         for index, row in self.bid_orders.iterrows():
-            price_diff = abs(row['price'] - best_bid)
+            price = Decimal(row['price'])
+            price_diff = abs(price - best_bid)
             price_pct_diff = price_diff / best_bid
-            bid_qty += row['size'] / (delta * price_pct_diff + beta)
+
+            size = Decimal(row['size'])
+
+            bid_qty += size / (delta * price_pct_diff + beta)
 
         ask_qty = 0
         for index, row in self.ask_orders.iterrows():
-            price_diff = abs(row['price'] - best_ask)
+            price = Decimal(row['price'])
+            price_diff = abs(price - best_ask)
             price_pct_diff = price_diff / best_ask
-            ask_qty += row['size'] / (delta * price_pct_diff + beta)
+
+            size = Decimal(row['size'])
+
+            ask_qty += size / (delta * price_pct_diff + beta)
 
         order_book_imbalance = (bid_qty - ask_qty) / (bid_qty + ask_qty)
 
