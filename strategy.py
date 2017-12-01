@@ -72,8 +72,6 @@ class Strategy:
         """
         Get the current account balance for a currency
 
-        `None` is returned when the currency does not exist.
-
         :param currency: the currency to get the balance for
         :returns: the balance of the account
         """
@@ -85,4 +83,4 @@ class Strategy:
             except (KeyError, TypeError, InvalidOperation):
                 continue
 
-        return None
+        return Decimal(0)
