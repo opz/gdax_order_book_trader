@@ -99,10 +99,7 @@ class GDAXTrader:
         except (ConnectionError, JSONDecodeError):
             return False
 
-        # For some reason the data is contained in a single element tuple
         try:
-            order_book = order_book[0]
-        except TypeError:
             return False
 
         bid_orders, ask_orders = self._order_book_to_df(order_book)
