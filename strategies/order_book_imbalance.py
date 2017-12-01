@@ -145,6 +145,8 @@ class OBIStrategy(Strategy):
 
         order_book_imbalance = (bid_qty - ask_qty) / (bid_qty + ask_qty)
 
+        logger.info('OBI: {:.8f}'.format(order_book_imbalance))
+
         self.order_book_imbalance.append(order_book_imbalance)
 
         if len(self.order_book_imbalance) > OBIStrategy.PERIOD:
@@ -154,8 +156,8 @@ class OBIStrategy(Strategy):
             buy_threshold = threshold * 2
             sell_threshold = -threshold * 2
 
-            logger.info('OBI: {}, Threshold: {}:{}'.format(
-                    order_book_imbalance, buy_threshold, sell_threshold))
+            logger.info('Threshold: {:.8f}:{:.8f}'.format(buy_threshold,
+                    sell_threshold))
 
             if order_book_imbalance > buy_threshold:
                 signal = OBIStrategy.BUY_SIGNAL
