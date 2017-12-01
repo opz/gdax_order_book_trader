@@ -63,6 +63,8 @@ class GDAXTrader:
 
         logger.info('Starting GDAX Trader...')
 
+        start_time = time.time()
+
         while running:
             success = self._run_iteration()
 
