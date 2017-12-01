@@ -100,9 +100,10 @@ class GDAXTrader:
             return False
 
         try:
+            bid_orders, ask_orders = self._order_book_to_df(order_book)
+        except KeyError as error:
+            logger.warning(error)
             return False
-
-        bid_orders, ask_orders = self._order_book_to_df(order_book)
 
         # Update all strategies
         for strategy in self.strategies:
@@ -144,21 +145,14 @@ class GDAXTrader:
 
         :param order_book: order book data
         :returns: tuple(bid_orders, ask_orders)
+        :raises KeyError: order book data missing attributes
         """
 
-        try:
-            columns = order_book['bids'].pop(0)
-            bid_orders = pd.DataFrame(list(order_book['bids']), columns=columns)
-        except KeyError as error:
-            logger.warning(error)
-            bid_orders = None
+        columns = ['price', 'size', 'num-orders']
 
-        try:
-            columns = order_book['ask'].pop(0)
-            ask_orders = pd.DataFrame(list(order_book['ask']), columns=columns)
-        except KeyError as error:
-            logger.warning(error)
-            ask_orders = None
+        bid_orders = pd.DataFrame(list(order_book['bids']), columns=columns)
+
+        ask_orders = pd.DataFrame(list(order_book['asks']), columns=columns)
 
         return bid_orders, ask_orders
 
