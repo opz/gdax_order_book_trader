@@ -2,7 +2,7 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 from gdax_trader import GDAXTrader
-from strategies.arbitrage import ArbitrageStrategy
+from strategies.order_book_imbalance import OBIStrategy
 
 
 if __name__ == '__main__':
@@ -10,7 +10,7 @@ if __name__ == '__main__':
 
     trader.set_product('BTC-USD')
 
-    strategy = ArbitrageStrategy()
+    strategy = OBIStrategy()
     trader.add_strategy(strategy)
 
     trader.run()
