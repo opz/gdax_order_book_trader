@@ -343,6 +343,7 @@ class OBIStrategy(Strategy):
 
                 return True
 
-        logger.info('No signal indicated')
+        else:
+            logger.info('No signal indicated')
 
         return False
