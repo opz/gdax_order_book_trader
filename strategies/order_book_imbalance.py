@@ -246,6 +246,9 @@ class OBIStrategy(Strategy):
         elif signal == OBIStrategy.SELL_SIGNAL:
             price_changed = price != (market_price - OBIStrategy.LIMIT_PADDING)
 
+        else:
+            price_changed = False
+
         if not signal or (can_be_cancelled and price_changed):
             logger.info('Cancel pending order')
             self._cancel_order()
